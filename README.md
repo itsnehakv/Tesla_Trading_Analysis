@@ -2,24 +2,21 @@
 
 ## Project Overview
 This project analyzes **Tesla’s historical trading data (Jan 2021 – Jan 2026)** to uncover **market trends, short-term spikes, volatility, and medium-term momentum**. The analysis leverages daily Open, Close, High, and Low prices to provide **numeric insights and actionable takeaways** for investors and portfolio managers.
+The goal is to provide **data-driven, executive-focused insights** into performance, risk, and trading patterns.
 
 ---
+## Libraries Used
+- Pandas
+- Pandas Datareader
+- Datetime
+- Matplotlib
+---
 
-## Key Questions / Objectives
-1. **Identify short-term spikes:**  
-   - Detect periods of **rapid price increases or high volatility**, including Q1 2023, Nov 2024–Mar 2025, and Q1 2025.  
-
-2. **Quantify risk and performance:**  
-   - Compute **daily returns, percent changes, and daily volatility**.  
-   - Understand **market momentum vs. risk exposure**.  
-
-3. **Analyze trend dynamics:**  
-   - Use **rolling averages (30-day)** for Open and Close prices to smooth daily fluctuations.  
-   - Identify **medium-term trends** and sustained momentum.  
-
-4. **Aggregate and summarize metrics:**  
-   - Resample data **monthly, quarterly, and annually** to evaluate broader trends.  
-   - Capture **peak, average, and percent change metrics** for decision-making.
+## Business Objectives
+1. Identify **short-term price rallies and consolidation periods**.  
+2. Evaluate **daily return, volatility, and percent change** to assess opportunity vs. risk.  
+3. Use **rolling averages and resampling** to understand medium- and long-term trends.  
+4. Quantify **risk-adjusted performance** for strategic decision-making.
 
 ---
 
@@ -30,15 +27,62 @@ This project analyzes **Tesla’s historical trading data (Jan 2021 – Jan 2026
 - **Metrics:** Open, Close, High, Low, Volume  
 
 ---
+## Methodology
+### 1. Data preparation
+- Converted trading dates into a **DatetimeIndex** for time-series analysis and sorted the index.
+```
+tesla_df.index = pd.to_datetime(tesla_df.index)
+tesla_df = tesla_df.sort_index()      
+```
+### 2. Initial Trend Exploration
+- Plotted **daily High prices** to visualize overall trends.  
+- Focused on **recent data (Jan 2024 – Jan 2026)** for closer inspection of the latest market behavior.  
+- Calculated basic spike metrics for this period:  
+  - **Peak High, Average High, Average Daily Volatility, Percent Change**<br>
+- **Insight:** Identified a notable **price surge** between Nov 2024 – Mar 2025 with a sharp spike (~92% gain) with high volatility.  
+
+
+### 3.Time Resampling
+- Resampled data to **business-end periods** for trend clarity:  
+  - **Monthly average High** (BM)  
+  - **Quarterly max High** (BQ)  
+  - **Annual average/max High** (BA)  
+- Focused on **trends rather than daily noise**, providing executive-friendly insights into performance over different horizons.
+
+### 4. Daily Return Analysis
+- Calculated **daily returns** using Open and Close prices:
+```
+tesla_df['Daily_Return'] = (tesla_df['Close'] - tesla_df['Open']) / tesla_df['Open'] * 100
+```
+- Plotted daily returns and noted periods of **spikes and elevated volatility**.  
+- **Insight:** Short-term rallies are visible in Q1 2023, Nov 2024–Mar 2025, and Q1 2025.
+
+### 5. Short-Term Spike Analysis
+- Isolated periods corresponding to **observed spikes in daily returns**.  
+- Computed metrics for each spike period:  
+- Avg Open/Close  
+- Avg Daily Return  
+- Avg Daily Volatility  
+- Peak High  
+- Percent Change  
+
+**Insights:**  
+- **Q1 2023:** Sustained short-term rally (~83% gain) with positive returns and moderate volatility.  
+- **Q1 2025:** High volatility (~$18/day) but limited net gain (~12%) — period of consolidation and profit-taking.
+
+### 6. Rolling Analysis
+- Applied **30-day rolling average** to Open (and Close) prices.  
+- Provided **smoothing effect** to identify **medium-term momentum**.
+---
 
 ## Executive Highlights
 
 ### Short-Term Spikes
 | Period | Peak High Price | Avg High Price | Avg Daily Volatility | Percent Change |
 |--------|----------------|---------------|--------------------|----------------|
-| Q1 2023 | $XXX | $XXX | $XX | XX% |
+| Q1 2023 | $217.65 | $178.25 | $9.23 | 83.20% |
 | Nov 2024 – Mar 2025 | $488.54 | $381.34 | $19.07 | 92.34% |
-| Q1 2025 | $XXX | $XXX | $XX | XX% |
+| Q1 2025 | $439.74 | $344.08 | $17.91 | 11.97% |
 
 **Insights:**  
 - Nov 2024 – Mar 2025 experienced the **largest short-term rally**, with a **92% increase in High price** and high daily volatility.  
@@ -54,18 +98,16 @@ This project analyzes **Tesla’s historical trading data (Jan 2021 – Jan 2026
 
 ---
 
-### Rolling Averages (30-Day)
-- **30-day rolling averages** of Open and Close prices smooth daily fluctuations, highlighting **medium-term trends and momentum**.  
-- This helps executives focus on **sustained market trends** rather than daily noise.  
-- Rolling metrics complement spike and daily return analysis to provide a **complete view of Tesla’s trading dynamics**.
-
----
-
 ### Resampled Metrics (Monthly, Quarterly, Annual)
 - **Monthly averages** capture short-term trends.  
 - **Quarterly max prices** highlight peak trading points.  
 - **Annual averages and max** reveal long-term trends.  
 - Using **business-end periods** ensures the analysis reflects **actual trading days**, excluding weekends and holidays.
+### Rolling Averages (30-Day)
+- **30-day rolling averages** of Open and Close prices smooth daily fluctuations, highlighting **medium-term trends and momentum**.  
+- This helps executives focus on **sustained market trends** rather than daily noise.  
+- Rolling metrics complement spike and daily return analysis to provide a **complete view of Tesla’s trading dynamics**.
+
 
 ---
 
@@ -74,10 +116,3 @@ This project analyzes **Tesla’s historical trading data (Jan 2021 – Jan 2026
 - Provides a **clear picture of momentum, risk, and opportunity** for investors.  
 - Rolling averages and resampled metrics give a **medium-term perspective**, enabling **data-driven portfolio decisions**.  
 - Overall, this project delivers a **comprehensive, executive-ready view of Tesla’s historical market behavior**.
-
----
-
-## Optional Next Steps
-1. Integrate **volume and news events** to explain spikes.  
-2. Combine **Daily Return and High-Low volatility** for **risk-adjusted performance analysis**.  
-3. Extend methodology to **other stocks or indices** for comparative insights.
