@@ -1,0 +1,11 @@
+ILOC
+iloc fetches data based on integer location and not by label
+.iloc[0] → first row
+.loc['2024-11-01'] → select row by label/date
+
+
+ROLLING
+In pandas, a rolling window (or just “rolling”) is a way to perform calculations on a sliding window of consecutive data points.
+You specify a window size — e.g., 5 days.
+For each point in your time series, pandas takes the current day and previous 4 days (5 total) and applies a function (mean, sum, max, etc.).
+The result is a smoothed or aggregated version of your data.
