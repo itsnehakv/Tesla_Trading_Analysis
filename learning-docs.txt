@@ -9,3 +9,11 @@ In pandas, a rolling window (or just “rolling”) is a way to perform calculat
 You specify a window size — e.g., 5 days.
 For each point in your time series, pandas takes the current day and previous 4 days (5 total) and applies a function (mean, sum, max, etc.).
 The result is a smoothed or aggregated version of your data.
+
+TIMING & DRAWDOWN RISK
+Timing Risk: 
+The risk that you enter or exit a trade at the wrong time, leading to suboptimal returns.
+Buying at the peak and selling at the trough can lead to losses, so the timing of trades is critical.
+Drawdown risk:
+Drawdown is the decline from a peak to a trough in a portfolio or asset price before a new high is reached.
+Drawdown risk is the chance of experiencing significant losses during this decline.
