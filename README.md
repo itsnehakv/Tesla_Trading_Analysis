@@ -39,23 +39,27 @@ tesla_df = tesla_df.sort_index()
 - Focused on **recent data (Jan 2024 – Jan 2026)** for closer inspection of the latest market behavior.  
 - Calculated basic spike metrics for this period:  
   - **Peak High, Average High, Average Daily Volatility, Percent Change**<br>
-- **Insight:** Identified a notable **price surge** between Nov 2024 – Mar 2025 with a sharp spike (~92% gain) with high volatility.  
+
+**Insight:**
+- Identified a notable **price surge** between Nov 2024 – Mar 2025 with a sharp spike (~92% gain) with high volatility.  
 
 
 ### 3.Time Resampling
 - Resampled data to **business-end periods** for trend clarity:  
-  - **Monthly average High** (BM)  
-  - **Quarterly max High** (BQ)  
-  - **Annual average/max High** (BA)  
-- Focused on **trends rather than daily noise**, providing executive-friendly insights into performance over different horizons.
+  - **Monthly average High** (BME) captures short-term trends.
+  - **Quarterly max High** (BQE) highlights peak trading points.  
+  - **Annual average/max High** (BYE)  reveals long-term trends.
+- Using **business-end periods** ensures the analysis reflects **actual trading days**, excluding weekends and holidays.
 
 ### 4. Daily Return Analysis
 - Calculated **daily returns** using Open and Close prices:
 ```
 tesla_df['Daily_Return'] = (tesla_df['Close'] - tesla_df['Open']) / tesla_df['Open'] * 100
 ```
-- Plotted daily returns and noted periods of **spikes and elevated volatility**.  
-- **Insight:** Short-term rallies are visible in Q1 2023, Nov 2024–Mar 2025, and Q1 2025.
+- Plotted daily returns and noted periods of **spikes and elevated volatility**.
+  
+**Insight:**
+- Short-term rallies are visible in Q1 2023, Nov 2024–Mar 2025, and Q1 2025.
 
 ### 5. Short-Term Spike Analysis
 - Isolated periods corresponding to **observed spikes in daily returns**.  
@@ -73,6 +77,9 @@ tesla_df['Daily_Return'] = (tesla_df['Close'] - tesla_df['Open']) / tesla_df['Op
 ### 6. Rolling Analysis
 - Applied **30-day rolling average** to Open (and Close) prices.  
 - Provided **smoothing effect** to identify **medium-term momentum**.
+
+**Insights:**
+- Spikes in the raw Open price are reflected in the rolling Open with a slight lag, highlighting periods of **short-term volatility** and allowing executives to distinguish **temporary surges from sustained momentum**.
 ---
 
 ## Executive Highlights
@@ -88,27 +95,6 @@ tesla_df['Daily_Return'] = (tesla_df['Close'] - tesla_df['Open']) / tesla_df['Op
 - Nov 2024 – Mar 2025 experienced the **largest short-term rally**, with a **92% increase in High price** and high daily volatility.  
 - Q1 2023 and Q1 2025 reveal **early-year rallies**, suggesting recurring seasonal momentum.  
 - These spikes highlight periods of **heightened opportunity and elevated risk**.
-
----
-
-### Daily Returns
-- Daily returns show the **percentage gain or loss each trading day**, helping assess **short-term performance and momentum**.  
-- Spikes in daily returns correspond to **Q1 2023 and Q1 2025**, confirming **short-term rallies and corrections**.  
-- Aggregated returns over weeks or months reveal **broader market trends** and **risk patterns**.
-
----
-
-### Resampled Metrics (Monthly, Quarterly, Annual)
-- **Monthly averages** capture short-term trends.  
-- **Quarterly max prices** highlight peak trading points.  
-- **Annual averages and max** reveal long-term trends.  
-- Using **business-end periods** ensures the analysis reflects **actual trading days**, excluding weekends and holidays.
-### Rolling Averages (30-Day)
-- **30-day rolling averages** of Open and Close prices smooth daily fluctuations, highlighting **medium-term trends and momentum**.  
-- This helps executives focus on **sustained market trends** rather than daily noise.  
-- Rolling metrics complement spike and daily return analysis to provide a **complete view of Tesla’s trading dynamics**.
-
-
 ---
 
 ## Impact / Takeaways
